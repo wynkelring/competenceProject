@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      ./CompetenceProject-Backend
+    ports:
+      - '8080:8080'
+    depends_on:
+      - database
+    restart: always
+  database:
+    container_name: 'mysqldb'
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: competenceproject
+    expose:
+      - '3307'
+    ports:
+      - '3307:3307'
+    restart: always
+
