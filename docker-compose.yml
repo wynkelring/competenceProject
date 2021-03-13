@@ -2,18 +2,21 @@ version: '3'
 
 services:
   backend:
-    build:
-      context: ./CompetenceProject-Backend
-      dockerfile: Dockerfile
+    image: maven:3.6.3-jdk-8
+    command: mvn spring-boot:run
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./CompetenceProject-Backend:/usr/src/mymaven:rw
+    working_dir: /usr/src/mymaven
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://database/competenceproject?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=UTC
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
       - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
-    ports:
-      - '8080:8080'
     depends_on:
       - database
+    restart: always
   database:
     container_name: 'mysqldb'
     image: mysql
