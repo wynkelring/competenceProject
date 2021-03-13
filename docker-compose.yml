@@ -3,7 +3,7 @@ version: '3'
 services:
   backend:
     build:
-      context: ./CompetenceProject-Backend
+      context: ./competence-project-backend
       dockerfile: Dockerfile
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://database/competenceproject?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=UTC
@@ -12,6 +12,9 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
     ports:
       - '8080:8080'
+    working_dir: /competence-project-backend
+    volumes:
+      - ./:/competence-project-backend
     depends_on:
       - database
   database:
